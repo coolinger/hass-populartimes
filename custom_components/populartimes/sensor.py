@@ -61,15 +61,6 @@ class PopularTimesSensor(Entity):
         return self._state
 
     @property
-    def state_class(self):
-        """Return the state class of the sensor."""
-        return "measurement"
-
-    @property
-    def unit_of_measurement(self):
-        return '%'
-
-    @property
     def state_attributes(self):
         return self._attributes
 
@@ -104,7 +95,7 @@ class PopularTimesSensor(Entity):
                 self._attributes['popularity_is_live'] = False
                 _LOGGER.warning("Current popularity info is not live but based on historical data.")
 
-            self._state = popularity
+            self._state = "on" if self._attributes['is_open'] else "off"
 
         except:
             _LOGGER.error("No popularity info is returned by the populartimes library.")

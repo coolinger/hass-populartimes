@@ -41,6 +41,7 @@ class PopularTimesSensor(Entity):
         self._attributes = {
             'maps_name': None,
             'place_id': placeid,
+            'is_open': None,
             'popularity_is_live': None,
             'popularity_monday': None,
             'popularity_tuesday': None,
@@ -79,6 +80,8 @@ class PopularTimesSensor(Entity):
             popularity = result.get('current_popularity', 0)
 
             self._attributes['maps_name'] = result["name"]
+            hours = result.get("hours")
+            self._attributes['is_open'] = hours.get("open_now") if hours else None
             self._attributes['popularity_monday'] = result["populartimes"][0]["data"]
             self._attributes['popularity_tuesday'] = result["populartimes"][1]["data"]
             self._attributes['popularity_wednesday'] = result["populartimes"][2]["data"]

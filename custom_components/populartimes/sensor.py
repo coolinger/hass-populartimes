@@ -44,6 +44,7 @@ class PopularTimesSensor(Entity):
             'popularity_friday': None,
             'popularity_saturday': None,
             'popularity_sunday': None,
+            'is_open': False,
         }
 
     @property
@@ -83,6 +84,7 @@ class PopularTimesSensor(Entity):
             self._attributes['popularity_friday'] = result["populartimes"][4]["data"]
             self._attributes['popularity_saturday'] = result["populartimes"][5]["data"]
             self._attributes['popularity_sunday'] = result["populartimes"][6]["data"]
+            self._attributes['is_open'] = result['open']=="Open"
 
             dt = datetime.now()
             weekdayIndex = dt.weekday()
